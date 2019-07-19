@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+           http://www.springframework.org/schema/aop   
+           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd  
+           http://www.springframework.org/schema/tx  
+           http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+            http://www.springframework.org/schema/cache 
+            http://www.springframework.org/schema/cache/spring-cache.xsd 
+           http://www.springframework.org/schema/context  
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+       default-autowire="byName" default-lazy-init="false">
+
+    <!-- redis连接属性配置-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="100"/>
+        <property name="maxIdle" value="20"/>
+        <property name="minIdle" value="10"/>
+        <property name="blockWhenExhausted" value="true"></property>
+        <property name="maxWaitMillis" value="3000"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="minEvictableIdleTimeMillis" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+        <property name="numTestsPerEvictionRun" value="-1"/>
+    </bean>
+
+    <!-- JedisCluster -->
+    <bean id="component-jedisClusterUtils" class="com.gzhc365.component.utils.cache.JedisClusterUtils"
+          destroy-method="close">
+        <constructor-arg index="0" value="${minidemo.redis.cluster.address}"
+                         type="String"></constructor-arg>
+        <constructor-arg index="1" value="${minidemo.redis.cluster.timeout}"
+                         type="int"></constructor-arg>
+        <constructor-arg index="2"
+                         value="${minidemo.redis.cluster.maxRedirections}" type="int"></constructor-arg>
+        <constructor-arg index="3" ref="jedisPoolConfig"></constructor-arg>
+        <constructor-arg index="4" value="#{ '${minidemo.redis.cluster.password:}'?:null }"></constructor-arg>
+    </bean>
+
+    <bean id="redisUtilsCache" class="com.gzhc365.component.utils.cache.RedisClusterCacheClient">
+        <property name="jedisClusterUtils" ref="component-jedisClusterUtils"/>
+        <property name="cacheNamePrefix"
+                  value="${minidemo.cache.name.prefix}"></property>
+        <property name="defaultCacheTime" value="${minidemo.cache.expire.time}"></property>
+    </bean>
+
+</beans>

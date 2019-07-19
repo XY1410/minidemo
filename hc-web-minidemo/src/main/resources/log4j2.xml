@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" name="XMLConfig" packages="com.gzhc365.minidemo.web.log">
+    <Filter type="ThresholdFilter" level="trace" />
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%F:%L] : %m%n"/>
+        </Console>
+        <RollingFile name="DRF" fileName="${sys:logs.home}/log.out"
+                     filePattern="${sys:logs.home}/log.out.%d{yyyy-MM-dd}" >
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true"
+                                           interval="1" />
+            </Policies>
+        </RollingFile>
+        <RollingFile name="monitor_log" fileName="${sys:logs.home}/monitorlog/monitorlog.out"
+                     filePattern="${sys:logs.home}/monitorlog/monitorlog.out.%d{yyyy-MM-dd}" >
+            <PatternLayout>
+                <Pattern>%m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true"
+                                           interval="1" />
+            </Policies>
+        </RollingFile>
+        <RollingFile name="monitorDetailLog" fileName="${sys:logs.home}/monitordetaillog/monitordetaillog.out"
+                     filePattern="${sys:logs.home}/monitordetaillog/monitordetaillog.out.%d{yyyy-MM-dd}" >
+            <WebLayout></WebLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true"
+                                           interval="1" />
+            </Policies>
+        </RollingFile>
+        <Async name="DRFASYNC" includeLocation="true">
+            <AppenderRef ref="DRF" />
+        </Async>
+        <Async name="STDOUTASYNC" includeLocation="true">
+            <AppenderRef ref="STDOUT" />
+        </Async>
+        <Async name="MONITORLOGASYNC" includeLocation="true">
+            <AppenderRef ref="monitor_log" />
+        </Async>
+        <Async name="MONITORDETAILLOGASYNC" includeLocation="true">
+            <AppenderRef ref="monitorDetailLog" />
+        </Async>
+    </Appenders>
+    <Loggers>
+        <!--<Logger name="STDOUT" level="${sys:logs.leve}"-->
+        <!--additivity="false">-->
+        <!--<AppenderRef ref="STDOUTASYNC" />-->
+        <!--</Logger>-->
+        <!--<Logger name="DRF" level="${sys:logs.leve}"-->
+        <!--additivity="false">-->
+        <!--<AppenderRef ref="DRFASYNC" />-->
+        <!--</Logger>-->
+        <!--<Logger name="monitor_log" level="${sys:logs.leve}"-->
+                <!--additivity="false">-->
+            <!--<AppenderRef ref="MONITORLOGASYNC" />-->
+        <!--</Logger>-->
+        <!--<Logger name="monitorDetailLog" level="${sys:logs.leve}"-->
+                <!--additivity="false">-->
+            <!--<AppenderRef ref="MONITORDETAILLOGASYNC" />-->
+        <!--</Logger>-->
+        <Logger name="org.apache.zookeeper" level="ERROR" additivity="false">
+            <AppenderRef ref="DRFASYNC" />
+            <AppenderRef ref="STDOUTASYNC" />
+        </Logger>
+        <Logger name="com.alibaba.dubbo" level="ERROR" additivity="false">
+            <AppenderRef ref="DRFASYNC" />
+            <AppenderRef ref="STDOUTASYNC" />
+        </Logger>
+        <!--<Logger name="com.gzhc365" level="${sys:logs.leve}" additivity="false">-->
+            <!--<AppenderRef ref="DRFASYNC" />-->
+            <!--<AppenderRef ref="STDOUTASYNC" />-->
+        <!--</Logger>-->
+        <Root level="${sys:logs.leve}">
+            <AppenderRef ref="STDOUTASYNC" />
+            <AppenderRef ref="DRFASYNC" />
+        </Root>
+    </Loggers>
+</Configuration>

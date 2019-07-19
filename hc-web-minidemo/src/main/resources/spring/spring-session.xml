@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+">
+    <!-- 配置session组件-->
+    <bean id="wxAppRedisSessionManager" class="com.gzhc365.web.session.WXAppRedisSessionManager">
+        <property name="SESSION_ID_PREFIX" value="WXAPP_SESSION_ID_"/>
+        <property name="maxInactiveInterval" value="604800"/>
+        <property name="expirationUpdateInterval" value="1000"></property>
+        <property name="cacheClient" ref="redisUtilsCache"/>
+    </bean>
+    <bean id="wxAppRedisSessionFilter" class="com.gzhc365.web.session.RedisSessionFilter">
+        <property name="sessionManager" ref="wxAppRedisSessionManager"/>
+    </bean>
+</beans>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	
+	<context id="read" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+		<commentGenerator>
+			<property name="suppressDate" value="false" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.11.113:9306/hc_minidemo_center" userId="root" password="dzn.321" />
+
+		<javaModelGenerator targetPackage="com.gzhc365.minidemo.entity"
+			targetProject="../hc-facade-minidemo/src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="minidemo.mybatis.mapper"
+			targetProject="./src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator targetPackage="com.gzhc365.minidemo.dao.read"
+			targetProject="./src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!--<table tableName="t_hc_question_investigation" domainObjectName="Investigation" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+		<!--<table tableName="t_hc_question_answer" domainObjectName="Answer" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+		<!-- <table tableName="t_hc_article" domainObjectName="Article" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="t_hc_article_type" domainObjectName="ArticleType" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	      -->  
+          <table tableName="t_hc_function_api" domainObjectName="FunctionApi"
+           enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByPrimaryKey="false"
+           enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+	</context>
+	
+	<context id="write" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+		<commentGenerator>
+			<property name="suppressDate" value="false" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+	<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.11.113:9306/hc_minidemo_center" userId="root" password="dzn.321" />
+
+		<javaModelGenerator targetPackage="com.gzhc365.minidemo.entity"
+			targetProject="../hc-facade-minidemo/src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="minidemo.mybatis.mapper"
+			targetProject="./src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator targetPackage="com.gzhc365.minidemo.dao.write"
+			targetProject="./src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!--<table tableName="t_hc_question_investigation" domainObjectName="Investigation" enableSelectByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+		<!--<table tableName="t_hc_question_answer" domainObjectName="Answer" enableSelectByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+		<!-- <table tableName="t_hc_article" domainObjectName="Article" enableSelectByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="t_hc_article_type" domainObjectName="ArticleType" enableSelectByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	 -->
+       <table tableName="t_hc_function_api" domainObjectName="FunctionApi" enableSelectByPrimaryKey="false" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+
+	</context>
+</generatorConfiguration>

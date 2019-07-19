@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="web-minidemo"/>
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${minidemo.dubbo.registry.address}"
+                    group="${minidemo.dubbo.registry.group.env}"/>
+    <!-- register = "false"/> -->
+    <!-- 用dubbo协议在20455端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="${minidemo.dubbo.protocol.port}"/>
+    <dubbo:provider
+            timeout="${minidemo.dubbo.provider.timeout}"
+            threadpool="${minidemo.dubbo.provider.threadpool}" threads="${minidemo.dubbo.provider.threads}"/>
+    <!--<dubbo:monitor protocol="registry"/>-->
+
+    <dubbo:service group="1" interface="com.gzhc365.minidemo.facade.UserFacade"
+                   ref="userFacadeImpl"/>
+
+    <dubbo:service group="2" interface="com.gzhc365.minidemo.facade.UserFacade"
+                   ref="userFacadeImpl2"/>
+</beans>
+  

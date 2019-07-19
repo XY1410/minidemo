@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/task
+           http://www.springframework.org/schema/task/spring-task-3.2.xsd"
+       default-autowire="byName">
+    <!-- 扫描classpath的包下的所有类，该包路径下的类可以不需要配置bean了 -->
+    <context:component-scan base-package="com.gzhc365.minidemo.web"/>
+
+    <mvc:annotation-driven/>
+
+    <!-- 配置视图解析器（jsp文件前缀后缀） -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/view/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+    <!-- 配置swagger-->
+    <mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/" cache-period="31556926"/>
+    <mvc:default-servlet-handler/>
+    <bean class="com.gzhc365.minidemo.web.handlefilter.SwaggerConfig"/>
+    <!-- 配置文件上传-->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="10485760000"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+</beans>

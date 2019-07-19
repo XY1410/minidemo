@@ -1,0 +1,78 @@
+启动参数:-Dinstance.env="dev" -Dzk.address="192.168.11.147:2181"  -Dzk.configs.version="1.0.0"  -Dzk.root.node="/project/hizapp/dev" -Dlogs.home="c://userlogs/"  -Dlogs.leve=INFO
+
+
+maven Setting.xml配置:  修改本地库地址为你自己的本地库地址
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<localRepository>D:\IdeaProjects\maven_repository</localRepository>
+	<interactiveMode>true</interactiveMode>
+    <offline>false</offline>
+    <pluginGroups>
+        <pluginGroup>org.mortbay.jetty</pluginGroup>
+        <pluginGroup>org.jenkins-ci.tools</pluginGroup>
+    </pluginGroups>
+	
+	<!--配置权限,使用默认用户-->
+	<servers>
+		<server>
+			<id>nexus-releases</id>
+			<username>deployment</username>
+			<password>deployment123</password>
+		</server>
+		<server> 
+			<id>nexus-snapshots</id>
+			<username>deployment</username>
+			<password>deployment123</password>
+		</server>
+	</servers>
+
+    <mirrors>
+
+    </mirrors>
+
+	<profiles>
+		<profile>
+		   <id>gzhc-platform</id>
+			    <activation>
+                    <activeByDefault>false</activeByDefault>
+                    <jdk>1.7</jdk>
+                </activation>
+			    <repositories>
+					<!-- 私有库地址-->
+				    <repository>
+						<id>nexus</id>
+						<url>http://192.168.11.224:9003/nexus/content/groups/public/</url>
+						<releases>
+							<enabled>true</enabled>
+						</releases>
+						<snapshots>
+							<enabled>true</enabled>
+						</snapshots>
+					</repository>
+				</repositories>      
+				<pluginRepositories>
+					<!--插件库地址-->
+					<pluginRepository>
+						<id>nexus</id>
+						<url>http://192.168.11.224:9003/nexus/content/groups/public/</url>
+						<releases>
+							<enabled>true</enabled>
+						</releases>
+						<snapshots>
+							<enabled>true</enabled>
+					   </snapshots>
+					</pluginRepository>
+				</pluginRepositories>
+			</profile>
+	</profiles>
+	
+	
+	<!--激活profile-->
+	<activeProfiles>
+		<activeProfile>gzhc-platform</activeProfile>
+	</activeProfiles>
+	
+</settings>
